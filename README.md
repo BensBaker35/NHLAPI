@@ -30,3 +30,7 @@ NHL team List
     Winnipeg Jets - 52
     Arizona Coyotes - 53
     Vegas Golden Knights - 54
+
+https://github.com/erunion/sport-api-specifications/tree/master/nhl
+https://gitlab.com/dword4/nhlapi/blob/master/records-api.md
+https://github.com/dword4/nhlapi
