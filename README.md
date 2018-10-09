@@ -31,6 +31,15 @@ NHL team List
     Arizona Coyotes - 53
     Vegas Golden Knights - 54
 
+In order to get stats need to add ?expand=person.stats&stats=(STATTYPE)
+
 https://github.com/erunion/sport-api-specifications/tree/master/nhl
 https://gitlab.com/dword4/nhlapi/blob/master/records-api.md
 https://github.com/dword4/nhlapi
+
+
+
+
+
+NFL API
+    needs an OAuth2.0 Token

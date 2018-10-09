@@ -8,15 +8,15 @@ const https = require('https')
 const request = require('request')
 
 
-const statsapiNHL = 'https://statsapi.web.nhl.com/api/v1/'
+const statsapiNHL = 'https://statsapi.web.nhl.com'
 const recordsNHL = 'https://records.nhl.com/site/api/'
 
 
-request(statsapiNHL.concat('people/8477949/stats'), {
+request(statsapiNHL.concat('/api/v1/teams/54'), {
     json: true
 }, (err, res, body) => {
     if (err) return console.log(err);
-    console.log(body);
+    //console.log(body.roster);
 
     if (body.teams) {
         parseTeams(body.teams)
@@ -24,13 +24,12 @@ request(statsapiNHL.concat('people/8477949/stats'), {
     if (body.dates) {
         parseSchedule(body.dates);
     }
-
-
-
+    if (body.people) {
+        parsePlayers(body.people)
+    }
 })
 
 function parseSchedule(dates) {
-    //var dates = body.dates;
 
     for (date of dates) {
 
@@ -48,9 +47,20 @@ function parseSchedule(dates) {
 
 function parseTeams(teams) {
     for (teamD of teams) {
-        console.log(teamD.franchise);
-        let t = new team(teamD.id, teamD.name, teamD.venue, teamD.abbreviation,
-            teamD.conference, teamD.division);
-        console.log(t);
+        request(statsapiNHL.concat([teamD.link+'/roster']),{json:true},(err,res,body)=>{
+            
+            let t = new team(teamD.id, teamD.name, teamD.venue, teamD.abbreviation,
+                teamD.conference, teamD.division,body.roster);
+            console.log(t); 
+        })
+    }
+}
+
+function parsePlayers(players) {
+    for (playerD of players) {
+        let pl = new player(playerD.id, playerD.fullName, playerD.primaryNumber,
+            playerD.primaryPosition.abbreviation, playerD.stats)
+        console.log(pl)
+        console.log(pl.stats[0].splits)
     }
 }

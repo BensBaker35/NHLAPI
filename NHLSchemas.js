@@ -1,11 +1,12 @@
 class team{
-    constructor(id,name,venue,abbr,confrence,division){
+    constructor(id,name,venue,abbr,confrence,division,roster){
         this.id = id;
         this.name = name;
         this.venue = venue;
         this. abbr = abbr;
         this.confrence = confrence;
         this.division = division;
+        this.roster = roster;
     }
 }
 
@@ -21,15 +22,17 @@ class game{
 }
 
 class player{
-    constructor(id,name,number,position){
+    constructor(id,name,number,position,stats){
         this.id = id
         this.name = name
         this.number = number
         this.position = position
+        this.stats = stats
     }
 }
 
 module.exports = {
     game : game,
-    team : team
+    team : team,
+    player : player
 }
