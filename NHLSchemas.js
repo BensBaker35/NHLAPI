@@ -31,8 +31,19 @@ class player{
     }
 }
 
+class teamStat{
+    constructor(name, wins,losses,pts,ot){
+        this.name = name;
+        this.wins = wins;
+        this.losses = losses;
+        this.pts = pts;
+        this.ot = ot
+    }
+}
+
 module.exports = {
     game : game,
     team : team,
-    player : player
+    player : player,
+    teamStat : teamStat
 }
