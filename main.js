@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const request = require('request');
-
+const cors = require('cors')
 const PORT = process.env.PORT;
 const app = express();
 
@@ -12,33 +12,45 @@ const {
 
 const statsapiNHL = 'https://statsapi.web.nhl.com';
 
+app.use(cors())
 
 app.get('/:teamID', (req, res, next) => {
     const id = req.params.teamID;
-    let body1;
-    let body2;
+    let statResponse;
+    let teamDataResponse;
+    let teamRosterResponse;
     request(statsapiNHL.concat(`/api/v1/teams/${id}/stats`), {
         json: true
     }, (err, resp, body) => {
         if (err) return console.log(err);
         //console.log(body);
-        body1 = body;
+        statResponse = body;
         //res.status(200).send();
         
         request(statsapiNHL.concat(`/api/v1/teams/${id}`), {
                 json: true
             },
             (err, resp, body) => {
+                teamDataResponse = body.teams[0];
+                
+                request(statsapiNHL.concat(`/api/v1/teams/${id}/roster`), {
+                    json: true
+                }, (err, resp, body) => {
+        
+                    let teamData = new team(teamDataResponse.id, teamDataResponse.name, teamDataResponse.venue, teamDataResponse.abbreviation,
+                        teamDataResponse.conference, teamDataResponse.division, body.roster);
+                        
+                        const teamStats = parseTeamStats(statResponse.stats);
+                        var mixedTeamStats = composeTeamStats(teamData,teamStats);
+                        res.status(200).send(mixedTeamStats); 
+                })
                 //console.log(body);
                 if (err) return console.log(err);
-                body2 = body;
                
-                const teamData = parseTeams(body2.teams);
-                console.log('HI' + teamData)
-                const teamStats = parseTeamStats(body1.stats);
-                console.log(teamStats);
-                var mixedTeamStats = composeTeamStats(teamData,teamStats);
-                res.status(200).send(mixedTeamStats); 
+               
+                //const teamData = parseTeams(teamDataResponse.teams);
+
+                
             })
     })
 
