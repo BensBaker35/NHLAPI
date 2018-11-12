@@ -1,4 +1,4 @@
-NHL team List
+# NHL team List
     New Jersey Devils - 1
     New York Islanders - 2
     New York Rangers - 3
@@ -31,11 +31,14 @@ NHL team List
     Arizona Coyotes - 53
     Vegas Golden Knights - 54
 
-In order to get stats need to add ?expand=person.stats&stats=(STATTYPE)
+In order to get stats for a player need to add
 
-https://github.com/erunion/sport-api-specifications/tree/master/nhl
-https://gitlab.com/dword4/nhlapi/blob/master/records-api.md
-https://github.com/dword4/nhlapi
+```?expand=person.stats&stats=(STATTYPE)```
+
+[Stats api reference](https://github.com/erunion/sport-api-specifications/tree/master/nhl)
+
+[NHL API Doccumentation reference](https://gitlab.com/dword4/nhlapi/blob/master/records-api.md)
+
 
 
 
