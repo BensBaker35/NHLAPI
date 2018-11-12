@@ -12,11 +12,11 @@ const statsapiNHL = 'https://statsapi.web.nhl.com'
 const recordsNHL = 'https://records.nhl.com/site/api/'
 
 
-request(statsapiNHL.concat('/api/v1/teams/54'), {
+request(statsapiNHL.concat('/api/v1/teams/54/stats'), {
     json: true
 }, (err, res, body) => {
     if (err) return console.log(err);
-    //console.log(body.roster);
+    console.log(body.stats[0].splits);
 
     if (body.teams) {
         parseTeams(body.teams)
